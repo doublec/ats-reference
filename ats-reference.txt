@@ -648,3 +648,45 @@ implement main() = {
   val () = list_vt_free (a)
 }
 ----
+
+list_vt_mergesort
+~~~~~~~~~~~~~~~~~
+
+----
+fun{a:vt0p}
+list_vt_mergesort {n:int}
+  (xs: list_vt (a, n), cmp: &(&a, &a) -<clo> int):<> list_vt (a, n)
+----
+
+Sorts the list using the merge sort algorithm. Requires a function to provide
+an ordering for elements in the list. 
+
+The comparison function should be stack allocated (has tag <clo>) and requires
+its arguments to be references. This means you can't use the prelude 'compare'
+function directly. It should return:
+
+|==================================================================
+| negative integer | first argument less than second argument 
+| 0                | first argument equals second argument
+| positive integer | first argument is greater than second argument
+|==================================================================
+
+----
+staload "prelude/SATS/list_vt.sats"
+staload "prelude/DATS/list_vt.dats"
+
+implement main() = {
+  val a = list_vt_of_arraysize<int> $arrsz (10, 2, 6, 4, 8)
+  val () = printf("Unsorted:\n", @())
+  val () = list_vt_iforeach_fun<int> (a, lam (i, x) =<>
+                                          $effmask_all
+					   (printf("%d: %d\n", @(i, x))))
+					   
+  val () = printf("Sorted:\n", @())
+  var !p_cmp = @lam (a: &int, b: &int): int =<> compare (a, b)
+  val b = list_vt_mergesort (a, !p_cmp)
+  val () = list_vt_iforeach_fun<int> (b, lam (i, x) =<>
+                                          $effmask_all
+					   (printf("%d: %d\n", @(i, x))))
+  val () = list_vt_free (b)
+----
