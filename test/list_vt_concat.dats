@@ -7,7 +7,7 @@ implement main() = {
   var c = list_vt_of_arraysize<int> $arrsz(9, 10)
   var d = list_vt_cons (a, list_vt_pair (b, c))
 
-val e = list_vt_concat (d)
+  val e = list_vt_concat (d)
 
   val () = loop (e) where {
              fun loop {n:nat} (lst: !list_vt (int, n)): void =

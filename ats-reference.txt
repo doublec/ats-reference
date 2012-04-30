@@ -456,7 +456,7 @@ implement main() = {
   var c = list_vt_of_arraysize<int> $arrsz(9, 10)
   var d = list_vt_cons (a, list_vt_pair (b, c))
 
-val e = list_vt_concat (d)
+  val e = list_vt_concat (d)
 
   val () = loop (e) where {
              fun loop {n:nat} (lst: !list_vt (int, n)): void =
@@ -471,3 +471,63 @@ val e = list_vt_concat (d)
 }
 ----
 
+list_vt_tabulate
+~~~~~~~~~~~~~~~~
+
+----
+fun{a:vt0p}
+list_vt_tabulate_funenv
+  {v:view} {vt:viewtype} {n:nat} {f:eff}
+  (pf: !v | f: (!v | natLt n, !vt) -<f> a, n: int n, env: !vt)
+  :<f> list_vt (a, n)
+
+fun{a:vt0p}
+list_vt_tabulate_fun {n:nat} {f:eff}
+  (f: natLt n -<f> a, n: int n):<f> list_vt (a, n)
+
+fun{a:vt0p}
+list_vt_tabulate_vclo {v:view} {n:nat} {f:eff}
+  (pf: !v | f: &(!v | natLt n) -<clo,f> a, n: int n):<f> list_vt (a, n)
+
+fun{a:vt0p}
+list_vt_tabulate_cloptr {n:nat} {f:eff}
+  (f: !(natLt n) -<cloptr,f> a, n: int n):<f> list_vt (a, n)
+
+fun{a:vt0p}
+list_vt_tabulate_vcloptr {v:view} {n:nat} {f:eff}
+  (pf: !v | f: !(!v | natLt n) -<cloptr,f> a, n: int n):<f> list_vt (a, n)
+----
+
+'list_vt_tabulate' is a family of functions that are used to generate a linear
+list given a function. The function is called 'n' times, with 'n' given as an
+argument. The result of the function is used as the element of the nth
+position of the generated list.
+
+There is a variant of 'list_vt_tabulate' for the different function types
+available in ATS:
+
+|=========================================================================
+| list_vt_tabulate_funenv  | General purpose version for any function type
+| list_vt_tabulate_fun     | C type functions (<fun>)
+| list_vt_tabulate_vclo    | Stack allocated closures (<clo>)
+| list_vt_tabulate_cloptr  | Linear closures (<cloptr>)
+| list_vt_tabulate_vcloptr | Linear closures with a proof argument
+|=========================================================================
+
+----
+staload "prelude/SATS/list_vt.sats"
+staload "prelude/DATS/list_vt.dats"
+
+implement main() = {
+  val a = list_vt_tabulate_fun<int> (lam (n) =<> n * 2, 4)
+  
+  val () = loop (a) where {
+             fun loop {n:nat} (lst: list_vt (int, n)): void =
+               case+ lst of
+               | ~list_vt_nil () => print_newline ()
+               | ~list_vt_cons (i, rest) => (printf("%d ", @(i));
+	                                     loop (rest))
+	   }
+
+}
+----
