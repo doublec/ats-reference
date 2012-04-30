@@ -14,7 +14,8 @@ all: list_vt_sing \
      list_vt_reverse \
      list_vt_reverse_append \
      list_vt_concat \
-     list_vt_tabulate
+     list_vt_tabulate \
+     list_vt_foreach
 
 list_vt_sing: list_vt_sing.dats
 	atscc -o list_vt_sing list_vt_sing.dats
@@ -67,6 +68,9 @@ list_vt_concat: list_vt_concat.dats
 list_vt_tabulate: list_vt_tabulate.dats
 	atscc -o list_vt_tabulate list_vt_tabulate.dats
 
+list_vt_foreach: list_vt_foreach.dats
+	atscc -o list_vt_foreach list_vt_foreach.dats
+
 
 clean:
 	-rm *_dats.c
@@ -88,3 +92,4 @@ clean:
 	-rm list_vt_reverse_append
 	-rm list_vt_concat
 	-rm list_vt_tabulate
+	-rm list_vt_foreach
