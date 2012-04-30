@@ -886,8 +886,6 @@ Given a pointer, return 'true' if the pointer is NULL.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/pointer.sats"
-
 implement main() = {
   val a = null
   val () = assertloc (ptr_is_null (a))
@@ -910,8 +908,6 @@ Given a pointer, return 'true' if the pointer is not NULL.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/pointer.sats"
-
 implement main() = {
   val a = null + 1
   val () = assertloc (ptr_isnot_null (a))
@@ -945,8 +941,6 @@ math operators.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/pointer.sats"
-
 implement main() = {
   val a = null
   val () = print (a)
@@ -986,8 +980,6 @@ with normal math operators.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/pointer.sats"
-
 implement main() = {
   val a = null + 8
   val () = print (a)
@@ -1051,8 +1043,6 @@ address.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/pointer.sats"
-
 implement main() = {
   val a = null + 4
   val b = ptr1_of_ptr (a)
@@ -1078,8 +1068,6 @@ pointer indexed by the 'null' address value.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/pointer.sats"
-
 implement main() = {
   val a = null
   val () = print (a)
