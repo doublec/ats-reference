@@ -185,3 +185,82 @@ implement main() = {
   val () = print_int (d)
 }
 ----
+
+list_vt_copy
+~~~~~~~~~~~~
+
+----
+fun{a:t0p}
+list_vt_copy {n:int} (xs: !list_vt (a, n)):<> list_vt (a, n)
+----
+
+Copy an existing linear list. Note that the items held in the list must be
+non-linear. The implementation of this template function requires
+'prelude/DATS/list.dats' to be loaded.
+
+----
+staload "prelude/SATS/list_vt.sats"
+staload "prelude/DATS/list_vt.dats"
+staload "prelude/DATS/list.dats"
+
+implement main() = {
+  val a = list_vt_sing 42
+  val b = list_vt_copy (a)
+  val+ ~list_vt_cons (c, ~list_vt_nil ()) = a
+  val+ ~list_vt_cons (d, ~list_vt_nil ()) = b
+  val () = print_int (c)
+  val () = print_newline ()
+  val () = print_int (d)
+}
+----
+
+list_vt_free
+~~~~~~~~~~~~
+
+----
+fun{a:t0p}
+list_vt_free (xs: List_vt a):<> void
+----
+
+Frees the linear list, destroying it. The items in the list must be
+non-linear. See 'list_vt_free_fun' for freeing a linear list containing linear
+resources.
+
+----
+staload "prelude/SATS/list_vt.sats"
+staload "prelude/DATS/list_vt.dats"
+
+implement main() = {
+  val a = list_vt_of_arraysize<int> $arrsz(41, 42)
+  val () = list_vt_free (a)
+}
+----
+
+list_vt_free_fun
+~~~~~~~~~~~~~~~~
+
+----
+fun{a:vt0p}
+list_vt_free_fun (
+  xs: List_vt a, f: (&a >> a?) -<fun> void
+) :<> void 
+----
+
+Frees the linear list, taking a function that will free the items held by the
+list.
+
+----
+staload "prelude/SATS/list_vt.sats"
+staload "prelude/DATS/list_vt.dats"
+
+dataviewtype foo = foo
+
+fn foo_free (f: &foo >> foo?):<> void =
+  case+ f of
+  | ~foo () => ()
+
+implement main() = {
+  val a = list_vt_cons (foo, list_vt_nil ())
+  val () = list_vt_free_fun (a, foo_free)
+}
+----
