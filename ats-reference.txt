@@ -1696,3 +1696,68 @@ implement main() = {
   val () = print_newline ()
   val () = print (p.b)
 ----
+
+ptr_get_t
+~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun{a:t@ype} ptr_get_t {l:addr} (pf: !a @ l | p: ptr l):<> a
+----
+
+Description
+^^^^^^^^^^^
+Returns the value held at the address of the given pointer. Requires a view of
+'a @ l' proving a type of 'a' is held at that address. The following two
+lines are equivalent:
+
+----
+val v = ptr_get_t<int> (pf_int | p_int)
+val v = !p_int
+----
+
+In the second line the proof of 'int @ l' is implicit - it is found in scope,
+whereas the 'ptr_get_t' usage requires passing it explicitly.
+
+Example
+^^^^^^^
+----
+staload _ = "prelude/DATS/pointer.dats"
+
+implement main() = {
+  val (pf_gc, pf_int | p_int) = ptr_alloc<int> ()
+  val () = ptr_set_t<int> (pf_int | p_int, 42)
+  val v = ptr_get_t<int>  (pf_int | p_int)
+  val () = print (v)
+  val () = ptr_free (pf_gc, pf_int | p_int)
+}
+----
+
+ptr_set_t
+~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun{a:t@ype} ptr_set_t {l:addr}
+  (pf: !(a?) @ l >> a @ l | p: ptr l, x: a):<> void
+----
+
+Description
+^^^^^^^^^^^
+Sets the value held at the pointer address to 'x'. Requires a view of 'a @ l'
+proving a type of 'a' is held at that address. The following two lines are
+equivalent:
+
+----
+val () = ptr_set_t<int> (pf_int | p_int, 42)
+val () = !p_int := 42 
+----
+
+In the second line the proof of 'int @ l' is implicit - it is found in scope,
+whereas the 'ptr_set_t' usage requires passing it explicitly.
+
+Example
+^^^^^^^
+See 'ptr_get_t' for an example of usage.
