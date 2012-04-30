@@ -1920,3 +1920,22 @@ implement main() = {
 }
 ----
 
+ptr_move_vt_tsz
+~~~~~~~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun ptr_move_vt_tsz
+  {a:viewt@ype} {l1,l2:addr} (
+    pf1: !a @ l1 >> (a?) @ l1, pf2: !(a?) @ l2 >> a @ l2
+  | p: ptr l1, p2: ptr l2, tsz: sizeof_t a
+  ) :<> void
+----
+
+Description
+^^^^^^^^^^^
+Non-template version of 'ptr_move_vt', where the viewtype is provided as a
+universal variable and the size is passed explicitly.
+
+
