@@ -560,7 +560,8 @@ list_vt_foreach_vcloptr {v:view} {n:int} {f:eff}
 ----
 
 'list_vt_foreach' is a family of functions that are used to iterate over a
-list, calling a function for each element in the list.
+list, calling a function for each element in the list. The function receives
+a reference to the list element as an argument.
 
 There is a variant of 'list_vt_foreach' for the different function types
 available in ATS:
@@ -584,6 +585,66 @@ implement main() = {
   val a = list_vt_tabulate_fun<int> (lam (n) =<> n * 2, 4)
   val () = list_vt_foreach_fun<int> (a, lam (x) =<>
                                          $effmask_all (printf("%d ", @(x))))
+  val () = list_vt_free (a)
+}
+----
+
+list_vt_iforeach
+~~~~~~~~~~~~~~~~
+
+----
+fun{a:vt0p}
+list_vt_iforeach_funenv
+  {v:view} {vt:viewtype} {n:int} {f:eff} (
+  pf: !v
+| xs: !list_vt (a, n), f: (!v | natLt n, &a, !vt) -<fun,f> void, env: !vt
+) :<f> void
+
+fun{a:vt0p}
+list_vt_iforeach_fun {n:int} {f:eff}
+  (xs: !list_vt (a, n), f: (natLt n, &a) -<fun,f> void):<f> void
+
+fun{a:vt0p}
+list_vt_iforeach_vclo {v:view} {n:int} {f:eff}
+  (pf: !v | xs: !list_vt (a, n), f: &(!v | natLt n, &a) -<clo,f> void):<f> void
+
+fun{a:t0p}
+list_vt_iforeach_cloptr {n:int} {f:eff}
+  (xs: !list_vt (a, n), f: !(natLt n, &a) -<cloptr,f> void):<f> void
+
+fun{a:t0p}
+list_vt_iforeach_vcloptr {v:view} {n:int} {f:eff}
+  (pf: !v | xs: !list_vt (a, n), f: !(!v | natLt n, &a) -<cloptr,f> void):<f> void
+----
+
+'list_vt_iforeach' is a family of functions that are used to iterate over a
+list, calling a function for each element in the list. The function receives
+as arguments the index of the element in the list and a reference to the list
+element.
+
+There is a variant of 'list_vt_iforeach' for the different function types
+available in ATS:
+
+|=========================================================================
+| list_vt_iforeach_funenv  | General purpose version for any function type
+| list_vt_iforeach_fun     | C type functions (<fun>)
+| list_vt_iforeach_vclo    | Stack allocated closures (<clo>)
+| list_vt_iforeach_cloptr  | Linear closures (<cloptr>)
+| list_vt_iforeach_vcloptr | Linear closures with a proof argument
+|=========================================================================
+
+Note that the 'cloptr' and 'vcloptr' variants work on lists containing types,
+not viewtypes like the other variants.
+
+----
+staload "prelude/SATS/list_vt.sats"
+staload "prelude/DATS/list_vt.dats"
+
+implement main() = {
+  val a = list_vt_tabulate_fun<int> (lam (n) =<> n * 2, 4)
+  val () = list_vt_iforeach_fun<int> (a, lam (i, x) =<>
+                                          $effmask_all
+					   (printf("%d: %d\n", @(i, x))))
   val () = list_vt_free (a)
 }
 ----
