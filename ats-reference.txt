@@ -1598,3 +1598,26 @@ implement main() = {
   val () = ptr_free (pf_gc, pf_int | p_int)
 }
 ----
+
+ptr_free
+~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun ptr_free
+  {a:t@ype} {l:addr} (
+  pfgc: free_gc_v (a, l), pfat: a @ l | p: ptr l
+) :<> void
+----
+
+Description
+^^^^^^^^^^^
+Free's the memory allocated at the address given by the pointer 'p'. Requires
+the 'free_gc_v' view that was obtained when allocating the memory originally
+and a view for providing access to the type 'a' at that address.
+
+Example
+^^^^^^^
+See the example for 'ptr_alloc'.
+
