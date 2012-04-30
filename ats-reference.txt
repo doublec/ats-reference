@@ -1665,5 +1665,34 @@ implement main() = {
 }
 ----
 
+ptr_zero_tsz
+~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
+----
+fun ptr_zero_tsz
+  {a:viewt@ype} (
+  pf: NULLABLE (a) | x: &a? >> a, tsz: sizeof_t a
+) :<> void
+----
 
+Description
+^^^^^^^^^^^
+Non-template version of 'ptr_zero'. Takes the type as a universable variable
+and the size of that type as an argument.
+
+Example
+^^^^^^^
+----
+typedef foo = @{ a=int, b=ptr }
+
+implement main() = {
+  var p: foo
+  val () = ptr_zero_tsz {foo} (nullable () | p, sizeof<foo>) where {
+             extern prfun nullable (): NULLABLE foo
+           }
+  val () = print (p.a)
+  val () = print_newline ()
+  val () = print (p.b)
+----
