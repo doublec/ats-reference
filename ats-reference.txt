@@ -3,6 +3,169 @@ ATS Reference
 Chris Double <chris.double@double.co.nz>
 29 April 2012
 
+Overloaded Functions
+--------------------
+
+The ATS prelude provides some functions that are overloaded with
+implementations for different types. These can be used instead of the explicit
+typed functions in many cases to make code easier to understand and more
+generic.
+
+print
+~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun print (p):<!ref> void
+----
+
+Description
+^^^^^^^^^^
+Prints some representation of 'p' to standard output.
+
+prerr
+~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun prerr (p):<!ref> void
+----
+
+Description
+^^^^^^^^^^^
+Prints some representation of 'p' to standard error.
+
+Math operators
+~~~~~~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun - (a, b):<> c
+fun + (a, b):<> c
+----
+
+Description
+^^^^^^^^^^^
+Standard mathematical operators overloaded for different types (pointers,
+numbers, etc).
+
+Comparison operators
+~~~~~~~~~~~~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun < (a, b):<> bool
+fun <= (a, b):<> bool
+fun > (a, b):<> bool
+fun >= (a, b):<> bool
+fun = (a, b):<> bool
+fun <> (a, b):<> bool
+fun != (a, b):<> bool
+----
+
+Description
+^^^^^^^^^^^
+Standard comparison operators overloaded for different types (pointers,
+numbers, etc).
+
+Pointer operators
+~~~~~~~~~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun ~ {l:addr} (p: ptr l):<> bool (l > null)
+----
+
+Description
+^^^^^^^^^^^
+Overloaded for the pointer types to return 'true' if the pointer is not null.
+
+succ
+~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun succ (a):<> b
+----
+
+Description
+^^^^^^^^^^^
+Returns the successor of a given value. For numbers and pointers this is the
+value + 1.
+
+pred
+~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun predc (a):<> b
+----
+
+Description
+^^^^^^^^^^^
+Returns the predecessor of a given value. For numbers and pointers this is the
+value - 1.
+
+padd
+~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun padd {l:addr} {i:int} (p, i) :<> p
+----
+
+Description
+^^^^^^^^^^^
+Adds 'i' to pointer 'p'.
+
+psub
+~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun psub {l:addr} {i:int} (p, i) :<> p
+----
+
+Description
+^^^^^^^^^^^
+Subtracts 'i' from pointer 'p'.
+
+compare
+~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun compare (a, b):<> Sgn 
+----
+
+Description
+^^^^^^^^^^^
+Returns a negative number if 'a' is less than 'b', a positive number if 'a' is
+greater than 'b' and zero if 'a' equals 'b'.
+
+tostring
+~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun tostring (x):<> strptr1
+----
+
+Description
+^^^^^^^^^^^
+Returns a string representation of value 'x'.
+
 Linear Lists
 ------------
 
