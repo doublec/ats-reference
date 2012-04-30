@@ -1335,3 +1335,78 @@ implement main() = {
   val () = print (c)
 }
 ----
+
+padd
+~~~~
+
+Definition
+^^^^^^^^^^
+----
+symintr padd
+fun padd_int
+  {l:addr}
+  {i:int} (
+  p: ptr l, i: int i
+) :<> ptr (l + i)
+overload + with padd_int
+overload padd with padd_int
+
+fun padd_size
+  {l:addr}
+  {i:int} (
+  p: ptr l, i: size_t i
+) :<> ptr (l + i)
+overload + with padd_size
+overload padd with padd_size
+----
+
+Description
+^^^^^^^^^^^
+An overloaded function that adds an 'int' or 'size_t' to a pointer.
+
+psub
+~~~~
+
+Definition
+^^^^^^^^^^
+----
+symintr psub
+fun psub_int
+  {l:addr}
+  {i:int} (
+  p: ptr l, i: int i
+) :<> ptr (l - i)
+overload - with psub_int
+overload psub with psub_int
+
+fun psub_size
+  {l:addr}
+  {i:int} (
+  p: ptr l, i: size_t i
+) :<> ptr (l - i)
+overload - with psub_size
+overload psub with psub_size
+----
+
+Description
+^^^^^^^^^^^
+An overloaded function that subtracts an 'int' or 'size_t' from a pointer.
+
+pdiff
+~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun pdiff
+  {l1,l2:addr} (
+  p1: ptr l1, p2: ptr l2
+) :<> ptrdiff_t (l1 - l2)
+overload - with pdiff
+----
+
+Description
+^^^^^^^^^^^
+Subtracts 'p2' from 'p1' and returns the result as a 'ptrdiff_t'.
+
+
