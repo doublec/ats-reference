@@ -1409,4 +1409,55 @@ Description
 ^^^^^^^^^^^
 Subtracts 'p2' from 'p1' and returns the result as a 'ptrdiff_t'.
 
+Indexed Pointer Comparison
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun plt {l1,l2:addr}
+  (p1: ptr l1, p2: ptr l2):<> bool (l1 < l2)
+and plte {l1,l2:addr}
+  (p1: ptr l1, p2: ptr l2):<> bool (l1 <= l2)
+overload < with plt
+overload <= with plte
+
+fun pgt {l1,l2:addr}
+  (p1: ptr l1, p2: ptr l2):<> bool (l1 > l2)
+and pgte {l1,l2:addr}
+  (p1: ptr l1, p2: ptr l2):<> bool (l1 >= l2)
+overload > with pgt
+overload >= with pgte
+
+fun peq {l1,l2:addr}
+  (p1: ptr l1, p2: ptr l2):<> bool (l1 == l2)
+and pneq {l1,l2:addr}
+  (p1: ptr l1, p2: ptr l2):<> bool (l1 <> l2)
+overload = with peq
+overload <> with pneq
+overload != with pneq
+----
+
+Description
+^^^^^^^^^^^
+
+This family of functions is used to compare dependently typed pointers indexed
+by their address for equality, greater than, less than, not equal, etc. The
+comparison operators are overloaded to work with the comparison functions.
+
+compare_ptr_ptr
+~~~~~~~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun compare_ptr_ptr (p1: ptr, p2: ptr):<> Sgn
+overload compare with compare_ptr_ptr
+----
+
+Description
+^^^^^^^^^^^
+Returns a negative number if 'p1' is less than 'p2', a positive number if 'p1'
+is greater than 'p2' and zero if 'p1' equals 'p2'.
+
 
