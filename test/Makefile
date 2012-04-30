@@ -9,7 +9,8 @@ all: list_vt_sing \
      list_vt_free_fun \
      list_vt_length \
      list_vt_make_elt \
-     list_vt_append
+     list_vt_append \
+     list_vt_split_at
 
 list_vt_sing: list_vt_sing.dats
 	atscc -o list_vt_sing list_vt_sing.dats
@@ -47,6 +48,9 @@ list_vt_make_elt: list_vt_make_elt.dats
 list_vt_append: list_vt_append.dats
 	atscc -o list_vt_append list_vt_append.dats
 
+list_vt_split_at: list_vt_split_at.dats
+	atscc -o list_vt_split_at list_vt_split_at.dats
+
 
 clean:
 	-rm *_dats.c
@@ -63,3 +67,4 @@ clean:
 	-rm list_vt_length
 	-rm list_vt_make_elt
 	-rm list_vt_append
+	-rm list_vt_split_at
