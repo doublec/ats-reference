@@ -2,7 +2,8 @@ all: list_vt_sing \
      list_vt_pair \
      list_vt_is_nil \
      list_vt_is_cons \
-     list_vt_make_array
+     list_vt_make_array \
+     list_vt_of_arraysize
 
 list_vt_sing: list_vt_sing.dats
 	atscc -o list_vt_sing list_vt_sing.dats
@@ -19,6 +20,9 @@ list_vt_is_cons: list_vt_is_cons.dats
 list_vt_make_array: list_vt_make_array.dats
 	atscc -o list_vt_make_array list_vt_make_array.dats
 
+list_vt_of_arraysize: list_vt_of_arraysize.dats
+	atscc -o list_vt_of_arraysize list_vt_of_arraysize.dats
+
 
 clean:
 	-rm *_dats.c
@@ -28,3 +32,4 @@ clean:
 	-rm list_vt_is_nil
 	-rm list_vt_is_cons
 	-rm list_vt_make_array
+	-rm list_vt_of_arraysize
