@@ -11,11 +11,11 @@ list_vt.sats contains the definition for datatypes and funtions that operate on
 linear lists. Use of these routines does not require the garbage collector.
 
 The list_vt datatype has two constructors. list_vt_nil and list_vt_cons.
-The former represents an empty lists and the latter a pair of a viewtype an an
+The former represents an empty list and the latter a pair of a viewtype and an
 existing list.
 
-Definitions
-~~~~~~~~~~~
+Constructors
+~~~~~~~~~~~~
 
 ----
 dataviewtype list_vt (a:viewt@ype+, int) =
@@ -29,7 +29,7 @@ an integer representing the length of the list. A slightly simpler typedef is
 provided that represents a list of any length:
 
 ----
-viewtypedef List_vt (a:viewt\@ype) = [n:int | n >=0] list_vt (a, n)
+viewtypedef List_vt (a:viewt@ype) = [n:int | n >=0] list_vt (a, n)
 ----
 
 list_vt_length_is_nonnegative
