@@ -9,7 +9,9 @@ implement main() = {
              fun loop {n:nat} (lst: !list_vt (int, n)): void =
                case+ lst of
                | list_vt_nil () => (fold@ lst; print_newline ())
-               | list_vt_cons (i, !rest) => (print_int (i); loop (!rest); fold@ lst)
+               | list_vt_cons (i, !rest) => (print_int (i);
+	                                     loop (!rest);
+					     fold@ lst)
 	   }
 
   val () = list_vt_free (b)
