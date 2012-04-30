@@ -14,7 +14,9 @@ all: ptr_is_null \
      ptr_zero_tsz \
      ptr_get_t \
      ptr_move_t \
-     ptr_move_t_tsz
+     ptr_move_t_tsz \
+     ptr_get_vt \
+     ptr_move_vt
 
 ptr_is_null: ptr_is_null.dats
 	atscc -o ptr_is_null ptr_is_null.dats
@@ -67,6 +69,12 @@ ptr_move_t: ptr_move_t.dats
 ptr_move_t_tsz: ptr_move_t_tsz.dats
 	atscc -o ptr_move_t_tsz ptr_move_t_tsz.dats
 
+ptr_get_vt: ptr_get_vt.dats
+	atscc -o ptr_get_vt ptr_get_vt.dats
+
+ptr_move_vt: ptr_move_vt.dats
+	atscc -o ptr_move_vt ptr_move_vt.dats
+
 
 clean:
 	-rm *_dats.c
@@ -88,5 +96,7 @@ clean:
 	-rm ptr_get_t
 	-rm ptr_move_t
 	-rm ptr_move_t_tsz
+	-rm ptr_get_vt
+	-rm ptr_move_vt
 
 

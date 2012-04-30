@@ -1824,3 +1824,99 @@ implement main() = {
   val () = ptr_free (pf_gc, pf_foo | p_foo)
 }
 ----
+
+ptr_get_vt
+~~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun{a:viewt@ype}
+ptr_get_vt {l:addr}
+  (pf: !a @ l >> (a?!) @ l | p: ptr l):<> a
+----
+
+Description
+^^^^^^^^^^^
+Same as 'ptr_get_t' but for viewtypes (linear types).
+
+Example
+^^^^^^^
+----
+staload _ = "prelude/DATS/pointer.dats"
+
+viewtypedef foo (l:addr) = @{ a= int, b= strptr l }
+viewtypedef foo = [l:addr] foo l
+
+implement main() = {
+  val x = @{ a= 42, b= sprintf ("Hello World", @()) }
+  val (pf_gc, pf_foo | p_foo) = ptr_alloc<foo> ()
+  val () = ptr_set_vt<foo> (pf_foo | p_foo, x)
+  val v = ptr_get_vt<foo> (pf_foo | p_foo)
+  val () = print (v.a)
+  val () = print_newline ()
+  val () = print (v.b)
+  val () = strptr_free (v.b)
+  val () = ptr_free (pf_gc, pf_foo | p_foo)
+}
+----
+
+ptr_set_vt
+~~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun{a:viewt@ype}
+ptr_set_vt {l:addr}
+  (pf: !(a?) @ l >> a @ l | p: ptr l, x: a):<> void
+----
+
+Description
+^^^^^^^^^^^
+Same as 'ptr_set_t' but for viewtypes (linear types).
+
+Example
+^^^^^^^
+See 'ptr_get_vt' for an example of usage.
+
+ptr_move_vt
+~~~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun{a:viewt@ype}
+ptr_move_vt {l1,l2:addr} (
+    pf1: !a @ l1 >> (a?) @ l1, pf2: !(a?) @ l2 >> a @ l2
+  | p1: ptr l1, p2: ptr l2
+  ) :<> void
+----
+
+Description
+^^^^^^^^^^^
+Like 'ptr_move_t' but for viewtypes (linear types). Unlike 'ptr_move_t' this
+is an actual move rather than a copy. Because the type is linear, the original
+value at the pointer address is no longer accessible after the move operation
+(it becomes a pointer to an uninitialized type).
+
+Example
+^^^^^^^
+----
+staload _ = "prelude/DATS/pointer.dats"
+
+viewtypedef foo (l:addr) = @{ a= int, b= strptr l }
+viewtypedef foo = [l:addr] foo l
+
+implement main() = {
+  var foo1: foo = @{ a= 42, b= sprintf ("Hello World", @()) }
+  val (pf_gc, pf_foo | p_foo) = ptr_alloc<foo> ()
+  val () = ptr_move_vt<foo> (view@ foo1, pf_foo | &foo1, p_foo)
+  val () = print (!p_foo.a)
+  val () = print_newline ()
+  val () = print (!p_foo.b)
+  val () = strptr_free (!p_foo.b)
+  val () = ptr_free (pf_gc, pf_foo | p_foo)
+}
+----
+
