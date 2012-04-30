@@ -690,3 +690,55 @@ implement main() = {
 					   (printf("%d: %d\n", @(i, x))))
   val () = list_vt_free (b)
 ----
+
+list_vt_quicksort
+~~~~~~~~~~~~~~~~~
+
+----
+fun{a:vt0p}
+list_vt_quicksort {n:int} (xs: !list_vt (a, n), cmp: (&a, &a) -<fun> int):<> void
+----
+
+Sorts a list using the quicksort algorithm. Unlike 'list_vt_mergesort' this
+modifies the original list rather than returning the result. 
+
+The comparison function should be a standard C function (has tag <fun>) and requires
+its arguments to be references. This means you can't use the prelude 'compare'
+function directly. It should return:
+
+|==================================================================
+| negative integer | first argument less than second argument 
+| 0                | first argument equals second argument
+| positive integer | first argument is greater than second argument
+|==================================================================
+
+The current 'list_vt_quicksort' implementation copies the list into an array
+and uses the standard C library 'qsort' function to sort it. It then copies
+the data back into the list. Due to the implementation details the following
+additional files must be loaded to use 'list_vt_qucksort':
+
+* 'prelude/DATS/array.dats'
+* 'libc/SATS/stdlib.sats'
+
+----
+staload "prelude/SATS/list_vt.sats"
+staload "prelude/DATS/list_vt.dats"
+staload "prelude/DATS/array.dats"
+staload "libc/SATS/stdlib.sats"
+
+implement main() = {
+  val a = list_vt_of_arraysize<int> $arrsz (10, 2, 6, 4, 8)
+  val () = printf("Unsorted:\n", @())
+  val () = list_vt_iforeach_fun<int> (a, lam (i, x) =<>
+                                          $effmask_all
+					   (printf("%d: %d\n", @(i, x))))
+					   
+  val () = printf("Sorted:\n", @())
+  fn cmp (a: &int, b: &int):<> int = compare (a, b)
+  val () = list_vt_quicksort (a, cmp)
+  val () = list_vt_iforeach_fun<int> (a, lam (i, x) =<>
+                                          $effmask_all
+					   (printf("%d: %d\n", @(i, x))))
+  val () = list_vt_free (a)
+}
+----

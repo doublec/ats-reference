@@ -17,7 +17,8 @@ all: list_vt_sing \
      list_vt_tabulate \
      list_vt_foreach \
      list_vt_iforeach \
-     list_vt_mergesort
+     list_vt_mergesort \
+     list_vt_quicksort
 
 list_vt_sing: list_vt_sing.dats
 	atscc -o list_vt_sing list_vt_sing.dats
@@ -79,6 +80,9 @@ list_vt_iforeach: list_vt_iforeach.dats
 list_vt_mergesort: list_vt_mergesort.dats
 	atscc -o list_vt_mergesort list_vt_mergesort.dats
 
+list_vt_quicksort: list_vt_quicksort.dats
+	atscc -o list_vt_quicksort list_vt_quicksort.dats
+
 
 clean:
 	-rm *_dats.c
@@ -103,3 +107,4 @@ clean:
 	-rm list_vt_foreach
 	-rm list_vt_iforeach
 	-rm list_vt_mergesort
+	-rm list_vt_quicksort
