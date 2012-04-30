@@ -1,7 +1,6 @@
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
-staload "prelude/DATS/array.dats"
-staload "libc/SATS/stdlib.sats"
+staload _ = "libc/SATS/stdlib.sats"
+staload _ = "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/array.dats"
 
 implement main() = {
   val a = list_vt_of_arraysize<int> $arrsz (10, 2, 6, 4, 8)

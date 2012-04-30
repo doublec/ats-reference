@@ -1,5 +1,4 @@
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt.dats"
 
 implement main() = {
   var !arr = @[string] ("a", "b")

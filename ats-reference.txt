@@ -64,9 +64,6 @@ Creates a 'list_vt' containing single element
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
-
 implement main() = {
   val a = list_vt_sing (42)
   val+ ~list_vt_cons (b, ~list_vt_nil ()) = a
@@ -91,9 +88,6 @@ Creates a 'list_vt' containing two elements
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
-
 implement main() = {
   val a = list_vt_pair ("a", "b")
   val+ ~list_vt_cons (b, c) = a
@@ -121,8 +115,7 @@ Returns 'true' if the given list is empty.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt.dats"
 
 implement main() = {
   val a = list_vt_sing (42)
@@ -150,8 +143,7 @@ Returns 'true' if the given list is not empty.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt.dats"
 
 implement main() = {
   val a = list_vt_sing (42)
@@ -181,8 +173,7 @@ array.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt.dats"
 
 implement main() = {
   var !arr = @[string] ("a", "b")
@@ -213,8 +204,7 @@ Given an arraysize, destructively convert it into a linear list.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt.dats"
 
 implement main() = {
   val a = list_vt_of_arraysize<int> $arrsz(41, 42)
@@ -245,9 +235,8 @@ non-linear. The implementation of this template function requires
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
-staload "prelude/DATS/list.dats"
+staload _ = "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list.dats"
 
 implement main() = {
   val a = list_vt_sing 42
@@ -279,8 +268,7 @@ resources.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt.dats"
 
 implement main() = {
   val a = list_vt_of_arraysize<int> $arrsz(41, 42)
@@ -308,8 +296,7 @@ list.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt.dats"
 
 dataviewtype foo = foo
 
@@ -340,8 +327,7 @@ Returns the length of the linear list.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt.dats"
 
 implement main() = {
   val a = list_vt_of_arraysize<int> $arrsz(41, 42)
@@ -369,8 +355,7 @@ element type must be non-linear.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ ="prelude/DATS/list_vt.dats"
 
 implement main() = {
   val a = list_vt_make_elt (42, 5)
@@ -398,8 +383,7 @@ elements in 'ys'. Both 'xs' and 'ys' are destroyed.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt.dats"
 
 implement main() = {
   val a = list_vt_of_arraysize<int> $arrsz(41, 42)
@@ -430,8 +414,7 @@ remaining items.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt.dats"
 
 implement main() = {
   var a = list_vt_of_arraysize<int> $arrsz(41, 42, 43, 44)
@@ -470,8 +453,7 @@ list. The original list is destroyed.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt.dats"
 
 implement main() = {
   var a = list_vt_of_arraysize<int> $arrsz(41, 42, 43, 44)
@@ -508,8 +490,7 @@ Reverses the list 'xs' then appends 'ys' to the resulting list and returns it.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt.dats"
 
 implement main() = {
   var a = list_vt_of_arraysize<int> $arrsz(41, 42, 43, 44)
@@ -547,8 +528,7 @@ Concatenates a list of lists into a single list.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt.dats"
 
 implement main() = {
   var a = list_vt_of_arraysize<int> $arrsz(1, 2, 3, 4)
@@ -621,8 +601,7 @@ available in ATS:
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt.dats"
 
 implement main() = {
   val a = list_vt_tabulate_fun<int> (lam (n) =<> n * 2, 4)
@@ -690,8 +669,7 @@ not viewtypes like the other variants.
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt.dats"
 
 implement main() = {
   val a = list_vt_tabulate_fun<int> (lam (n) =<> n * 2, 4)
@@ -796,8 +774,7 @@ function directly. It should return:
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt.dats"
 
 implement main() = {
   val a = list_vt_of_arraysize<int> $arrsz (10, 2, 6, 4, 8)
@@ -851,10 +828,9 @@ additional files must be loaded to use 'list_vt_qucksort':
 Example
 ^^^^^^^
 ----
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
-staload "prelude/DATS/array.dats"
-staload "libc/SATS/stdlib.sats"
+staload _ = "libc/SATS/stdlib.sats"
+staload _ = "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/array.dats"
 
 implement main() = {
   val a = list_vt_of_arraysize<int> $arrsz (10, 2, 6, 4, 8)

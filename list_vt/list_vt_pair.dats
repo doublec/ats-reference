@@ -1,6 +1,3 @@
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
-
 implement main() = {
   val a = list_vt_pair ("a", "b")
   val+ ~list_vt_cons (b, c) = a

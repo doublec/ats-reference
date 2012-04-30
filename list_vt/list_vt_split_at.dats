@@ -1,5 +1,4 @@
-staload "prelude/SATS/list_vt.sats"
-staload "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt.dats"
 
 implement main() = {
   var a = list_vt_of_arraysize<int> $arrsz(41, 42, 43, 44)
