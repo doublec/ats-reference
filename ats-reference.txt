@@ -1517,4 +1517,50 @@ Description
 ^^^^^^^^^^^
 Returns a string representation of the pointer.
 
+free_gc_t0ype_addr_trans
+~~~~~~~~~~~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
+----
+praxi free_gc_t0ype_addr_trans
+  {a1,a2:t@ype | sizeof a1 == sizeof a2} {l:addr}
+  (pf_gc: !free_gc_v (a1, l) >> free_gc_v (a2, l)): void
+----
+
+Description
+^^^^^^^^^^^
+TODO: Is the description right?
+
+A proof function asserting that two values of the same size and type, and at
+the same memory address, can use the same view for freeing the memory.
+
+ptr_alloc
+~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun{a:viewt@ype} ptr_alloc ()
+  :<> [l:addr | l > null] (free_gc_v (a?, l), a? @ l | ptr l)
+----
+
+Description
+^^^^^^^^^^^
+Template function for allocating memory for a value of type 'a'. It returns a
+non-NULL pointer to the allocated memory, a view that is required to free the
+memory later and a view for accessing the value stored at that addressed. The
+value held at the allocated address is uninitialized.
+
+Example
+^^^^^^^
+----
+staload _ = "prelude/DATS/pointer.dats"
+
+implement main() = {
+  val (pf_gc, pf_int | p_int) = ptr_alloc<int> ()
+  val () = !p_int := 42
+  val () = print (!p_int)
+  val () = ptr_free (pf_gc, pf_int | p_int)
+}
+----
