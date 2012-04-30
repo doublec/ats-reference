@@ -1460,4 +1460,61 @@ Description
 Returns a negative number if 'p1' is less than 'p2', a positive number if 'p1'
 is greater than 'p2' and zero if 'p1' equals 'p2'.
 
+fprint_ptr
+~~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun fprint_ptr {m:file_mode}
+  (pf: file_mode_lte (m, w) | out: !FILE m, x: ptr):<!exnref> void
+overload fprint with fprint_ptr
+----
+
+Description
+^^^^^^^^^^^
+Prints a representation of the pointer value to a file.
+
+print_ptr
+~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+---
+fun print_ptr (p: ptr):<!ref> void
+overload print with print_ptr
+---
+
+Description
+^^^^^^^^^^^
+Prints a representation of the pointer to standard output.
+
+prerr_ptr
+~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun prerr_ptr (p: ptr):<!ref> void
+overload prerr with prerr_ptr
+----
+
+Description
+^^^^^^^^^^^
+Prints a representation of the pointer to standard error.
+
+tostring_ptr
+~~~~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun tostring_ptr (p: ptr):<> strptr1
+overload tostring with tostring_ptr
+----
+
+Description
+^^^^^^^^^^^
+Returns a string representation of the pointer.
+
 
