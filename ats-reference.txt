@@ -1,0 +1,78 @@
+ATS Reference
+=============
+Chris Double <chris.double@double.co.nz>
+29 April 2012
+
+Prelude
+-------
+
+Linear Lists
+~~~~~~~~~~~~
+
+list_vt is a polymorphic linear datatype for dealing with linked lists. 
+list_vt.sats contains the definition for datatypes and funtions that operate on
+linear lists. Use of these routines does not require the garbage collector.
+
+The list_vt datatype has two constructors. list_vt_nil and list_vt_cons.
+The former represents an empty lists and the latter a pair of a viewtype an an
+existing list.
+
+Definitions
+^^^^^^^^^^^
+----
+dataviewtype list_vt (a:viewt@ype+, int) =
+  | {n:int | n >= 0}
+    list_vt_cons (a, n+1) of (a, list_vte (a, n))
+  | list_vt_nil (a, 0)
+----
+
+The list_vt type is indexed by the type of the item contained in the list and
+an integer representing the length of the list. A slightly simpler typedef is
+provided that represents a list of any length:
+
+----
+viewtypedef List_vt (a:viewt\@ype) = [n:int | n >=0] list_vt (a, n)
+----
+
+list_sing
+^^^^^^^^^
+
+----
+macdef list_sing (x) = list_cons (,(x), list_nil ())
+----
+
+Creates a 'list_vt' containing single element
+
+----
+staload "prelude/SATS/list_vt.sats"
+staload "prelude/DATS/list_vt.dats"
+
+implement main() = {
+  val a = list_vt_sing (42)
+  val+ ~list_vt_cons (b, ~list_vt_nil ()) = a
+  val () = print_int (b)
+}
+----
+
+list_pair
+^^^^^^^^^
+
+----
+macdef list_pair (x1, x2) = list_cons (,(x1), list_cons (,(x2), list_nil))
+----
+
+Creates a 'list_vt' containing two elements
+
+----
+staload "prelude/SATS/list_vt.sats"
+staload "prelude/DATS/list_vt.dats"
+
+implement main() = {
+  val a = list_vt_pair ("a", "b")
+  val+ ~list_vt_cons (b, c) = a
+  val+ ~list_vt_cons (d, ~list_vt_nil ()) = c
+  val () = print_string (b)
+  val () = print_newline ()
+  val () = print_string (d)
+}
+----
