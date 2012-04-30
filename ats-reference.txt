@@ -1073,3 +1073,51 @@ implement main() = {
   val () = print (a)
 }
 ----
+
+ptr1_is_null
+~~~~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun ptr1_is_null {l:addr}
+  (p: ptr l):<> bool (l==null)
+----
+
+Description
+^^^^^^^^^^^
+Given a dependently typed pointer indexed by the address value, return 'true' if the pointer is NULL.
+
+Example
+^^^^^^^
+----
+implement main() = {
+  val a = null
+  val () = assertloc (ptr1_is_null (a))
+}
+----
+
+ptr1_isnot_null 
+~~~~~~~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun ptr1_isnot_null {l:addr}
+  (p: ptr l):<> bool (l > null)
+overload ~ with ptr1_isnot_null
+----
+
+Description
+^^^^^^^^^^^
+Given a dependently typed pointer indexed by the address value, return 'true'
+if the pointer is not NULL.
+
+Example
+^^^^^^^
+----
+implement main() = {
+  val a = null + 4
+  val () = assertloc (ptr1_isnot_null (a))
+}
+----

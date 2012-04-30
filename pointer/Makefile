@@ -3,7 +3,9 @@ all: ptr_is_null \
      add_ptr \
      sub_ptr \
      ptr1_of_ptr \
-     null
+     null \
+     ptr1_is_null \
+     ptr1_isnot_null
 
 ptr_is_null: ptr_is_null.dats
 	atscc -o ptr_is_null ptr_is_null.dats
@@ -23,6 +25,12 @@ ptr1_of_ptr: ptr1_of_ptr.dats
 null: null.dats
 	atscc -o null null.dats
 
+ptr1_is_null: ptr1_is_null.dats
+	atscc -o ptr1_is_null ptr1_is_null.dats
+
+ptr1_isnot_null: ptr1_isnot_null.dats
+	atscc -o ptr1_isnot_null ptr1_isnot_null.dats
+
 
 clean:
 	-rm *_dats.c
@@ -33,5 +41,7 @@ clean:
 	-rm sub_ptr
 	-rm ptr1_of_ptr
 	-rm null
+	-rm ptr1_is_null
+	-rm ptr1_isnot_null
 
 
