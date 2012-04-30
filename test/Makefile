@@ -11,7 +11,8 @@ all: list_vt_sing \
      list_vt_make_elt \
      list_vt_append \
      list_vt_split_at \
-     list_vt_reverse
+     list_vt_reverse \
+     list_vt_reverse_append
 
 list_vt_sing: list_vt_sing.dats
 	atscc -o list_vt_sing list_vt_sing.dats
@@ -55,6 +56,9 @@ list_vt_split_at: list_vt_split_at.dats
 list_vt_reverse: list_vt_reverse.dats
 	atscc -o list_vt_reverse list_vt_reverse.dats
 
+list_vt_reverse_append: list_vt_reverse_append.dats
+	atscc -o list_vt_reverse_append list_vt_reverse_append.dats
+
 
 clean:
 	-rm *_dats.c
@@ -73,3 +77,4 @@ clean:
 	-rm list_vt_append
 	-rm list_vt_split_at
 	-rm list_vt_reverse
+	-rm list_vt_reverse_append
