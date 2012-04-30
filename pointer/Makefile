@@ -5,7 +5,9 @@ all: ptr_is_null \
      ptr1_of_ptr \
      null \
      ptr1_is_null \
-     ptr1_isnot_null
+     ptr1_isnot_null \
+     psucc \
+     ppred
 
 ptr_is_null: ptr_is_null.dats
 	atscc -o ptr_is_null ptr_is_null.dats
@@ -31,6 +33,12 @@ ptr1_is_null: ptr1_is_null.dats
 ptr1_isnot_null: ptr1_isnot_null.dats
 	atscc -o ptr1_isnot_null ptr1_isnot_null.dats
 
+psucc: psucc.dats
+	atscc -o psucc psucc.dats
+
+ppred: ppred.dats
+	atscc -o ppred ppred.dats
+
 
 clean:
 	-rm *_dats.c
@@ -43,5 +51,7 @@ clean:
 	-rm null
 	-rm ptr1_is_null
 	-rm ptr1_isnot_null
+	-rm psucc
+	-rm ppred
 
 

@@ -1284,3 +1284,54 @@ implement main() = {
   val () = assertloc (ptr1_isnot_null (a))
 }
 ----
+
+psucc
+~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun psucc {l:addr} (p: ptr l):<> ptr (l + 1)
+overload succ with psucc
+----
+
+Description
+^^^^^^^^^^^
+Returns the successor of a pointer - the pointer value incremented by one.
+
+Example
+^^^^^^^
+----
+implement main() = {
+  val a = null
+  val b = psucc (a)
+  val () = print (b)
+}
+----
+
+ppred
+~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun ppred {l:addr} (p: ptr l):<> ptr (l - 1)
+overload pred with ppred
+----
+
+Description
+^^^^^^^^^^^
+Returns the predecessor of a pointer - the pointer value decremented by one.
+
+Example
+^^^^^^^
+----
+implement main() = {
+  val a = null
+  val b = psucc (a)
+  val () = print (b)
+  val () = print_newline ()
+  val c = ppred (b)
+  val () = print (c)
+}
+----
