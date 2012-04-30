@@ -1025,4 +1025,87 @@ implement main() = {
 }
 ----
 
+Pointer Comparison
+~~~~~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
+----
+fun lt_ptr_ptr (p1: ptr, p2: ptr):<> bool
+and lte_ptr_ptr (p1: ptr, p2: ptr):<> bool
+
+overload < with lt_ptr_ptr
+overload <= with lte_ptr_ptr
+
+fun gt_ptr_ptr (p1: ptr, p2: ptr):<> bool
+and gte_ptr_ptr (p1: ptr, p2: ptr):<> bool
+
+overload > with gt_ptr_ptr
+overload >= with gte_ptr_ptr
+
+fun eq_ptr_ptr (p1: ptr, p2: ptr):<> bool
+and neq_ptr_ptr (p1: ptr, p2: ptr):<> bool
+overload = with eq_ptr_ptr
+overload <> with neq_ptr_ptr
+overload != with neq_ptr_ptr
+----
+
+Description
+^^^^^^^^^^^
+
+This family of functions is used to compare pointers for equality, greater
+than, less than, not equal, etc. The comparison operators are overloaded to
+work with the comparison functions.
+
+ptr1_of_ptr 
+~~~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+castfn ptr1_of_ptr (p: ptr):<> [l:addr] ptr l
+----
+
+Description
+^^^^^^^^^^^
+
+Cast a 'ptr' to a 'ptr l', which is a dependently typed pointer indexed by its
+address.
+
+Example
+^^^^^^^
+----
+staload "prelude/SATS/pointer.sats"
+
+implement main() = {
+  val a = null + 4
+  val b = ptr1_of_ptr (a)
+  val () = print (b)
+}
+----
+
+null
+~~~~
+
+Definition
+^^^^^^^^^^
+----
+val null : ptr null
+----
+
+Description
+^^^^^^^^^^^
+
+'null' is the definition of the NULL pointer. It is a dependently typed
+pointer indexed by the 'null' address value.
+
+Example
+^^^^^^^
+----
+staload "prelude/SATS/pointer.sats"
+
+implement main() = {
+  val a = null
+  val () = print (a)
+}
+----
