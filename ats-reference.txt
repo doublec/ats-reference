@@ -1761,3 +1761,66 @@ whereas the 'ptr_set_t' usage requires passing it explicitly.
 Example
 ^^^^^^^
 See 'ptr_get_t' for an example of usage.
+
+ptr_move_t
+~~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun{a:t@ype} ptr_move_t {l1,l2:addr}
+  (pf1: !a @ l1, pf2: !(a?) @ l2 >> a @ l2 | p1: ptr l1, p2: ptr l2):<> void
+----
+
+Description
+^^^^^^^^^^^
+Copies the value held at pointer location 'p1' into 'p2'. 
+
+Example
+^^^^^^^
+----
+staload _ = "prelude/DATS/pointer.dats"
+
+implement main() = {
+  val (pf_gc, pf_int | p_int) = ptr_alloc<int> ()
+  var x: int = 42
+  val () = ptr_move_t<int> (view@ x, pf_int | &x, p_int)
+  val () = print (!p_int)
+  val () = ptr_free (pf_gc, pf_int | p_int)
+}
+----
+
+ptr_move_t_tsz
+~~~~~~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun ptr_move_t_tsz {a:t@ype} {l1,l2:addr} (
+    pf1: !a @ l1, pf2: !(a?) @ l2 >> a @ l2
+  | p1: ptr l1, p2: ptr l2, tsz: sizeof_t a
+  ) :<> void
+----
+
+Description
+^^^^^^^^^^^
+A non-template version of 'ptr_move_t'. The type is passed as a universal
+variable and the size is an argument.
+
+Example
+^^^^^^^
+----
+staload _ = "prelude/DATS/pointer.dats"
+
+typedef foo = @{ a= int, b= string }
+
+implement main() = {
+  var x: foo = @{ a= 42, b= "Hello World" }
+  val (pf_gc, pf_foo | p_foo) = ptr_alloc<foo> ()
+  val () = ptr_move_t_tsz {foo} (view@ x, pf_foo | &x, p_foo, sizeof<foo>)
+  val () = print (!p_foo.a)
+  val () = print_newline ()
+  val () = print (!p_foo.b)
+  val () = ptr_free (pf_gc, pf_foo | p_foo)
+}
+----
