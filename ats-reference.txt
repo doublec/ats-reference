@@ -264,3 +264,25 @@ implement main() = {
   val () = list_vt_free_fun (a, foo_free)
 }
 ----
+
+list_vt_length
+~~~~~~~~~~~~~~
+
+----
+fun{a:vt0p}
+list_vt_length {n:int} (xs: !list_vt (a, n)):<> int n
+----
+
+Returns the length of the linear list.
+
+----
+staload "prelude/SATS/list_vt.sats"
+staload "prelude/DATS/list_vt.dats"
+
+implement main() = {
+  val a = list_vt_of_arraysize<int> $arrsz(41, 42)
+  val len = list_vt_length (a)
+  val () = printf("Length: %d\n", @(len))
+  val () = list_vt_free (a)
+}
+----
