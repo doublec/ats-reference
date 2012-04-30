@@ -1621,3 +1621,49 @@ Example
 ^^^^^^^
 See the example for 'ptr_alloc'.
 
+NULLABLE
+~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+absprop NULLABLE (a: viewt@ype+) // covariant
+----
+
+Description
+^^^^^^^^^^^
+Abstract prop used when dealing with types that can be initialized to zero
+(eg. pointers set to NULL, etc). See 'ptr_zero' for example usage.
+
+ptr_zero
+~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun{a:viewt@ype}
+ptr_zero (pf: NULLABLE (a) | x: &a? >> a):<> void
+----
+
+Description
+^^^^^^^^^^^
+Given a reference to an uninitialized pointer type this will result in an
+initialized type set to zero using 'memset'. A proof view of 'NULLABLE' for
+the type is required.
+
+Example
+^^^^^^^
+----
+staload _ = "prelude/DATS/pointer.dats"
+
+implement main() = {
+  var p: ptr
+  val () = ptr_zero (nullable () | p) where {
+             extern prfun nullable (): NULLABLE ptr
+           }
+  val () = print (p)	   
+}
+----
+
+
+
