@@ -35,24 +35,34 @@ viewtypedef List_vt (a:viewt@ype) = [n:int | n >=0] list_vt (a, n)
 list_vt_length_is_nonnegative
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 prfun list_vt_length_is_nonnegative
   {a:vt0p} {n:int} (xs: !list_vt (a, n)): [n>=0] void
 ----
 
+Description
+^^^^^^^^^^^
 Proof function that asserts that the linear list has a non-negative length.
 
 
 list_vt_sing
 ~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 macdef list_vt_sing (x) =
   list_vt_cons (,(x), list_vt_nil ())
 ----
 
+Description
+^^^^^^^^^^^
 Creates a 'list_vt' containing single element
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -67,13 +77,19 @@ implement main() = {
 list_vt_pair
 ~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 macdef list_vt_pair (x1, x2) =
   list_vt_cons (,(x1), list_vt_cons (,(x2), list_vt_nil))
 ----
 
+Description
+^^^^^^^^^^^
 Creates a 'list_vt' containing two elements
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -91,13 +107,19 @@ implement main() = {
 list_vt_is_nil
 ~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{} list_vt_is_nil
   {a:vt0p} {n:int} (xs: !list_vt (a, n)):<> bool (n==0)
 ----
 
+Description
+^^^^^^^^^^^
 Returns 'true' if the given list is empty.
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -114,13 +136,19 @@ implement main() = {
 list_vt_is_cons
 ~~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{} list_vt_is_cons
   {a:vt0p} {n:int} (xs: !list_vt (a, n)):<> bool (n > 0)
 ----
 
+Description
+^^^^^^^^^^^
 Returns 'true' if the given list is not empty.
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -137,15 +165,21 @@ implement main() = {
 list_vt_make_array
 ~~~~~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{a:vt0p}
 list_vt_make_array {n:int}
   (A: &(@[a][n]) >> @[a?!][n], n: size_t n):<> list_vt (a, n)
 ----
 
+Description
+^^^^^^^^^^^
 Given a reference to an array, return a linear list of the items in that
 array. 
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -164,14 +198,20 @@ implement main() = {
 list_vt_of_arraysize
 ~~~~~~~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{a:vt0p}
 list_vt_of_arraysize
   {n:int} (arrsz: arraysize (a, n)):<> list_vt (a, n)
 ----
 
+Description
+^^^^^^^^^^^
 Given an arraysize, destructively convert it into a linear list.
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -189,15 +229,21 @@ implement main() = {
 list_vt_copy
 ~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{a:t0p}
 list_vt_copy {n:int} (xs: !list_vt (a, n)):<> list_vt (a, n)
 ----
 
+Description
+^^^^^^^^^^^
 Copy an existing linear list. Note that the items held in the list must be
 non-linear. The implementation of this template function requires
 'prelude/DATS/list.dats' to be loaded.
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -217,15 +263,21 @@ implement main() = {
 list_vt_free
 ~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{a:t0p}
 list_vt_free (xs: List_vt a):<> void
 ----
 
+Description
+^^^^^^^^^^^
 Frees the linear list, destroying it. The items in the list must be
 non-linear. See 'list_vt_free_fun' for freeing a linear list containing linear
 resources.
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -239,6 +291,8 @@ implement main() = {
 list_vt_free_fun
 ~~~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{a:vt0p}
 list_vt_free_fun (
@@ -246,9 +300,13 @@ list_vt_free_fun (
 ) :<> void 
 ----
 
+Description
+^^^^^^^^^^^
 Frees the linear list, taking a function that will free the items held by the
 list.
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -268,13 +326,19 @@ implement main() = {
 list_vt_length
 ~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{a:vt0p}
 list_vt_length {n:int} (xs: !list_vt (a, n)):<> int n
 ----
 
+Description
+^^^^^^^^^^^
 Returns the length of the linear list.
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -290,14 +354,20 @@ implement main() = {
 list_vt_make_elt
 ~~~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{a:t0p}
 list_vt_make_elt {n:nat} (x: a, n: int n):<> list_vt (a, n)
 ----
 
+Description
+^^^^^^^^^^^
 Return a linear list composed of length 'n' containing 'n' copies of 'x'. The
 element type must be non-linear.
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -312,15 +382,21 @@ implement main() = {
 list_vt_append
 ~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{a:vt0p}
 list_vt_append {m,n:int}
   (xs: list_vt (a, m), ys: list_vt (a, n)):<> list_vt (a, m+n)
 ----
 
+Description
+^^^^^^^^^^^
 Returns a linear list containing the elements from 'xs' followed by the
 elements in 'ys'. Both 'xs' and 'ys' are destroyed.
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -337,16 +413,22 @@ implement main() = {
 list_vt_split_at
 ~~~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{a:vt0p}
 list_vt_split_at {n:int} {i:nat | i <= n}
   (xs: &list_vt (a, n) >> list_vt (a, n-i), i: int i):<> list_vt (a, i)
 ----
 
+Description
+^^^^^^^^^^^
 Given a reference to a linear list, and in index into that list 'i', return a
 list containing the first 'i' items and modifies the original list to have the
 remaining items.
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -373,14 +455,20 @@ implement main() = {
 list_vt_reverse
 ~~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{a:vt0p}
 list_vt_reverse {n:int} (xs: list_vt (a, n)):<> list_vt (a, n)
 ----
 
+Description
+^^^^^^^^^^^
 Given a linear list, reverses the order of elements and returns the resulting
 list. The original list is destroyed.
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -405,14 +493,20 @@ implement main() = {
 list_vt_reverse_append
 ~~~~~~~~~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{a:vt0p}
 list_vt_reverse_append {m,n:int}
   (xs: list_vt (a, m), ys: list_vt (a, n)):<> list_vt (a, m+n)
 ----
 
+Description
+^^^^^^^^^^^
 Reverses the list 'xs' then appends 'ys' to the resulting list and returns it.
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -439,13 +533,19 @@ implement main() = {
 list_vt_concat
 ~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{a:vt0p}
 list_vt_concat (xss: List_vt (List_vt (a))):<> List_vt (a)
 ----
 
+Description
+^^^^^^^^^^^
 Concatenates a list of lists into a single list.
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -474,6 +574,8 @@ implement main() = {
 list_vt_tabulate
 ~~~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{a:vt0p}
 list_vt_tabulate_funenv
@@ -498,6 +600,8 @@ list_vt_tabulate_vcloptr {v:view} {n:nat} {f:eff}
   (pf: !v | f: !(!v | natLt n) -<cloptr,f> a, n: int n):<f> list_vt (a, n)
 ----
 
+Description
+^^^^^^^^^^^
 'list_vt_tabulate' is a family of functions that are used to generate a linear
 list given a function. The function is called 'n' times, with 'n' given as an
 argument. The result of the function is used as the element of the nth
@@ -514,6 +618,8 @@ available in ATS:
 | list_vt_tabulate_vcloptr | Linear closures with a proof argument
 |=========================================================================
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -535,6 +641,8 @@ implement main() = {
 list_vt_foreach
 ~~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{a:vt0p}
 list_vt_foreach_funenv
@@ -559,6 +667,8 @@ list_vt_foreach_vcloptr {v:view} {n:int} {f:eff}
   (pf: !v | xs: !list_vt (a, n), f: !(!v | &a) -<cloptr,f> void):<f> void
 ----
 
+Description
+^^^^^^^^^^^
 'list_vt_foreach' is a family of functions that are used to iterate over a
 list, calling a function for each element in the list. The function receives
 a reference to the list element as an argument.
@@ -577,6 +687,8 @@ available in ATS:
 Note that the 'cloptr' and 'vcloptr' variants work on lists containing types,
 not viewtypes like the other variants.
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -592,6 +704,8 @@ implement main() = {
 list_vt_iforeach
 ~~~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{a:vt0p}
 list_vt_iforeach_funenv
@@ -617,6 +731,8 @@ list_vt_iforeach_vcloptr {v:view} {n:int} {f:eff}
   (pf: !v | xs: !list_vt (a, n), f: !(!v | natLt n, &a) -<cloptr,f> void):<f> void
 ----
 
+Description
+^^^^^^^^^^^
 'list_vt_iforeach' is a family of functions that are used to iterate over a
 list, calling a function for each element in the list. The function receives
 as arguments the index of the element in the list and a reference to the list
@@ -636,6 +752,8 @@ available in ATS:
 Note that the 'cloptr' and 'vcloptr' variants work on lists containing types,
 not viewtypes like the other variants.
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -652,12 +770,16 @@ implement main() = {
 list_vt_mergesort
 ~~~~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{a:vt0p}
 list_vt_mergesort {n:int}
   (xs: list_vt (a, n), cmp: &(&a, &a) -<clo> int):<> list_vt (a, n)
 ----
 
+Description
+^^^^^^^^^^^
 Sorts the list using the merge sort algorithm. Requires a function to provide
 an ordering for elements in the list. 
 
@@ -671,6 +793,8 @@ function directly. It should return:
 | positive integer | first argument is greater than second argument
 |==================================================================
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
@@ -694,11 +818,15 @@ implement main() = {
 list_vt_quicksort
 ~~~~~~~~~~~~~~~~~
 
+Definition
+^^^^^^^^^^
 ----
 fun{a:vt0p}
 list_vt_quicksort {n:int} (xs: !list_vt (a, n), cmp: (&a, &a) -<fun> int):<> void
 ----
 
+Description
+^^^^^^^^^^^
 Sorts a list using the quicksort algorithm. Unlike 'list_vt_mergesort' this
 modifies the original list rather than returning the result. 
 
@@ -720,6 +848,8 @@ additional files must be loaded to use 'list_vt_qucksort':
 * 'prelude/DATS/array.dats'
 * 'libc/SATS/stdlib.sats'
 
+Example
+^^^^^^^
 ----
 staload "prelude/SATS/list_vt.sats"
 staload "prelude/DATS/list_vt.dats"
