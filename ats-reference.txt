@@ -3,11 +3,8 @@ ATS Reference
 Chris Double <chris.double@double.co.nz>
 29 April 2012
 
-Prelude
--------
-
 Linear Lists
-~~~~~~~~~~~~
+------------
 
 list_vt is a polymorphic linear datatype for dealing with linked lists. 
 list_vt.sats contains the definition for datatypes and funtions that operate on
@@ -18,7 +15,8 @@ The former represents an empty lists and the latter a pair of a viewtype an an
 existing list.
 
 Definitions
-^^^^^^^^^^^
+~~~~~~~~~~~
+
 ----
 dataviewtype list_vt (a:viewt@ype+, int) =
   | {n:int | n >= 0}
@@ -35,7 +33,7 @@ viewtypedef List_vt (a:viewt\@ype) = [n:int | n >=0] list_vt (a, n)
 ----
 
 list_vt_length_is_nonnegative
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ----
 prfun list_vt_length_is_nonnegative
@@ -45,11 +43,12 @@ prfun list_vt_length_is_nonnegative
 Proof function that asserts that the linear list has a non-negative length.
 
 
-list_sing
-^^^^^^^^^
+list_vt_sing
+~~~~~~~~~
 
 ----
-macdef list_sing (x) = list_cons (,(x), list_nil ())
+macdef list_vt_sing (x) =
+  list_vt_cons (,(x), list_vt_nil ())
 ----
 
 Creates a 'list_vt' containing single element
@@ -65,11 +64,12 @@ implement main() = {
 }
 ----
 
-list_pair
-^^^^^^^^^
+list_vt_pair
+~~~~~~~~~
 
 ----
-macdef list_pair (x1, x2) = list_cons (,(x1), list_cons (,(x2), list_nil))
+macdef list_vt_pair (x1, x2) =
+  list_vt_cons (,(x1), list_vt_cons (,(x2), list_vt_nil))
 ----
 
 Creates a 'list_vt' containing two elements
@@ -89,7 +89,7 @@ implement main() = {
 ----
 
 list_vt_is_nil
-^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~
 
 ----
 fun{} list_vt_is_nil
@@ -112,7 +112,7 @@ implement main() = {
 ----
 
 list_vt_is_cons
-^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~
 
 ----
 fun{} list_vt_is_cons
@@ -135,7 +135,7 @@ implement main() = {
 ----
 
 list_vt_make_array
-^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~
 
 ----
 fun{a:vt0p}
@@ -162,7 +162,7 @@ implement main() = {
 ----
 
 list_vt_of_arraysize
-^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~
 
 ----
 fun{a:vt0p}
