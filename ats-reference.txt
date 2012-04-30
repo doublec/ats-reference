@@ -1564,3 +1564,37 @@ implement main() = {
   val () = ptr_free (pf_gc, pf_int | p_int)
 }
 ----
+
+ptr_alloc_tsz
+~~~~~~~~~~~~~
+
+Definition
+^^^^^^^^^^
+----
+fun ptr_alloc_tsz
+  {a:viewt@ype} (tsz: sizeof_t a)
+  :<> [l:addr | l > null] (free_gc_v (a?, l), a? @ l | ptr l)
+----
+
+Description
+^^^^^^^^^^^
+Like 'ptr_alloc', this function is used for allocating memory for a value of
+type 'a'. Unlike 'ptr_alloc', this is not a template function, so it takes the
+type of the object as a universal variable and the size as an argument (which
+must match the actual size of the given universal variable).
+
+It returns a
+non-NULL pointer to the allocated memory, a view that is required to free the
+memory later and a view for accessing the value stored at that addressed. The
+value held at the allocated address is uninitialized.
+
+Example
+^^^^^^^
+----
+implement main() = {
+  val (pf_gc, pf_int | p_int) = ptr_alloc_tsz {int} (sizeof<int>)
+  val () = !p_int := 42
+  val () = print (!p_int)
+  val () = ptr_free (pf_gc, pf_int | p_int)
+}
+----

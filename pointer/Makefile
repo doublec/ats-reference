@@ -8,7 +8,8 @@ all: ptr_is_null \
      ptr1_isnot_null \
      psucc \
      ppred \
-     ptr_alloc
+     ptr_alloc \
+     ptr_alloc_tsz
 
 ptr_is_null: ptr_is_null.dats
 	atscc -o ptr_is_null ptr_is_null.dats
@@ -43,6 +44,9 @@ ppred: ppred.dats
 ptr_alloc: ptr_alloc.dats
 	atscc -o ptr_alloc ptr_alloc.dats
 
+ptr_alloc_tsz: ptr_alloc_tsz.dats
+	atscc -o ptr_alloc_tsz ptr_alloc_tsz.dats
+
 
 clean:
 	-rm *_dats.c
@@ -58,5 +62,6 @@ clean:
 	-rm psucc
 	-rm ppred
 	-rm ptr_alloc
+	-rm ptr_alloc_tsz
 
 
