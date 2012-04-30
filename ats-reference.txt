@@ -34,6 +34,17 @@ provided that represents a list of any length:
 viewtypedef List_vt (a:viewt\@ype) = [n:int | n >=0] list_vt (a, n)
 ----
 
+list_vt_length_is_nonnegative
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+----
+prfun list_vt_length_is_nonnegative
+  {a:vt0p} {n:int} (xs: !list_vt (a, n)): [n>=0] void
+----
+
+Proof function that asserts that the linear list has a non-negative length.
+
+
 list_sing
 ^^^^^^^^^
 
@@ -69,6 +80,79 @@ staload "prelude/DATS/list_vt.dats"
 
 implement main() = {
   val a = list_vt_pair ("a", "b")
+  val+ ~list_vt_cons (b, c) = a
+  val+ ~list_vt_cons (d, ~list_vt_nil ()) = c
+  val () = print_string (b)
+  val () = print_newline ()
+  val () = print_string (d)
+}
+----
+
+list_vt_is_nil
+^^^^^^^^^^^^^^
+
+----
+fun{} list_vt_is_nil
+  {a:vt0p} {n:int} (xs: !list_vt (a, n)):<> bool (n==0)
+----
+
+Returns 'true' if the given list is empty.
+
+----
+staload "prelude/SATS/list_vt.sats"
+staload "prelude/DATS/list_vt.dats"
+
+implement main() = {
+  val a = list_vt_sing (42)
+  val+ ~list_vt_cons (b, c) = a
+  val () = assertloc (list_vt_is_nil (c))
+  val+ ~list_vt_nil () = c
+  val () = print_int (b)
+}
+----
+
+list_vt_is_cons
+^^^^^^^^^^^^^^^
+
+----
+fun{} list_vt_is_cons
+  {a:vt0p} {n:int} (xs: !list_vt (a, n)):<> bool (n > 0)
+----
+
+Returns 'true' if the given list is not empty.
+
+----
+staload "prelude/SATS/list_vt.sats"
+staload "prelude/DATS/list_vt.dats"
+
+implement main() = {
+  val a = list_vt_sing (42)
+  val () = assertloc (list_vt_is_cons (a))
+  val+ ~list_vt_cons (b, c) = a
+  val+ ~list_vt_nil () = c
+  val () = print_int (b)
+}
+----
+
+list_vt_make_array
+^^^^^^^^^^^^^^^^^^
+
+----
+fun{a:vt0p}
+list_vt_make_array {n:int}
+  (A: &(@[a][n]) >> @[a?!][n], n: size_t n):<> list_vt (a, n)
+----
+
+Given a reference to an array, return a linear list of the items in that
+array. 
+
+----
+staload "prelude/SATS/list_vt.sats"
+staload "prelude/DATS/list_vt.dats"
+
+implement main() = {
+  var !arr = @[string] ("a", "b")
+  val a = list_vt_make_array (!arr, 2)
   val+ ~list_vt_cons (b, c) = a
   val+ ~list_vt_cons (d, ~list_vt_nil ()) = c
   val () = print_string (b)
