@@ -1,7 +1,7 @@
 ATS Reference
 =============
 Chris Double <chris.double@double.co.nz>
-29 April 2012
+27 June 2012
 
 Overloaded Functions
 --------------------
@@ -2175,3 +2175,37 @@ prfun viewout_decode
 Description
 ^^^^^^^^^^^
 Unsure what this is for. Documentation for this appreciated.
+
+Strings
+-------
+
+The following tables lists the main string types and what they're used
+for:
+
+|=========================================================================
+| string    | A non linear string that can only be free'd by the GC
+| String    | A non linear string with a length. This is sometimes referred
+              to in functions as a 'string1'.
+| stropt    | An optional type with states for non-null and null non linear
+              strings with a length.
+| Stropt    | A typedef for 'stropt' with any length.
+| strbuf    | A linear array of bytes where the last byte is null
+| strptr    | A linear string which must be manually free'd.
+| strptr0   | An strptr that can be null.
+| strptr1   | An strptr that cannot be null.
+| strptrlen | A linear string with a length
+|=========================================================================
+
+A number of types are defined for characters and bytes:
+
+|=========================================================================
+| bytes (int)  | A 'byte' array with a length
+| b0ytes (int) | An unintialized 'byte' array with a length
+| chars (int)  | A 'char' array with a  length
+| c0hars (int) | An unintialized 'char' array with a length 
+| c1har        | A non-null 'char' 
+| c1hars (int) | An array of non-null chars with a length
+|=========================================================================
+
+
+
